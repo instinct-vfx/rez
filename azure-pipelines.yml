@@ -35,7 +35,10 @@ steps:
   displayName: "Install dependencies for testing"
 
 - script: |
-    rez selftest -vv
+    python install.py $(Pipeline.Workspace)/rez_install
+
+- script: |
+    $(Pipeline.Workspace)/rez_install/bin/rez/rez selftest -vv
   displayName: 'Run rez selftest'
 
 # - script: |
