@@ -30,6 +30,11 @@ steps:
   displayName: 'Update pip'
 
 - script: |
+    sudo apt-get update
+    sudo apt-get install -y tcsh csh cmake
+  displayName: "Install dependencies for testing"
+
+- script: |
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
