@@ -35,6 +35,10 @@ steps:
   displayName: "Install dependencies for testing"
 
 - script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+    rez selftest -vv
+  displayName: 'Run rez selftest'
+
+# - script: |
+#     pip install pytest pytest-azurepipelines
+#     pytest
+#   displayName: 'pytest'
