@@ -39,7 +39,7 @@ jobs:
       condition: succeededOrFailed()
       inputs:
         testResultsFiles: '**/test-*.xml'
-        testRunTitle: 'Publish test results for Python $(python.version)'
+        testRunTitle: 'Test results for Ubuntu with Python $(python.version)'
       
 
   - job: Windows
@@ -75,4 +75,4 @@ jobs:
         condition: succeededOrFailed()
         inputs:
           testResultsFiles: '**/test-*.xml'
-          testRunTitle: 'Publish test results for Python $(python.version)'
+          testRunTitle: 'Test results for Windows with Python $(python.version)'
