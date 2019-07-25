@@ -7,42 +7,36 @@ trigger:
 - azure-pipelines
 
 jobs:
-  # - job: Ubuntu
-  #   pool:
-  #     vmImage: 'ubuntu-latest'
-  #   strategy:
-  #     matrix:
-  #       Python27:
-  #         python.version: '2.7'
-  #   #    Python35:
-  #   #      python.version: '3.5'
-  #   #    Python36:
-  #   #      python.version: '3.6'
-  #   #    Python37:
-  #   #      python.version: '3.7'
+  - job: Ubuntu
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      matrix:
+        Python27:
+          python.version: '2.7'
 
-  #   steps:
-  #   - task: UsePythonVersion@0
-  #     inputs:
-  #       versionSpec: '$(python.version)'
-  #     displayName: 'Use Python $(python.version)'
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(python.version)'
+      displayName: 'Use Python $(python.version)'
 
-  #   - script: |
-  #       python -m pip install --upgrade pip
-  #     displayName: 'Update pip'
+    - script: |
+        python -m pip install --upgrade pip
+      displayName: 'Update pip'
 
-  #   - script: |
-  #       sudo apt-get update
-  #       sudo apt-get install -y tcsh csh cmake
-  #     displayName: "Install dependencies for testing"
+    - script: |
+        sudo apt-get update
+        sudo apt-get install -y tcsh csh cmake
+      displayName: "Install dependencies for testing"
 
-  #   - script: |
-  #       python install.py $(Pipeline.Workspace)/rez_install
-  #     displayName: 'Install rez'
+    - script: |
+        python install.py $(Pipeline.Workspace)/rez_install
+      displayName: 'Install rez'
 
-  #   - script: |
-  #       $(Pipeline.Workspace)/rez_install/bin/rez/rez selftest -vv
-  #     displayName: 'Run rez selftest'
+    - script: |
+        $(Pipeline.Workspace)/rez_install/bin/rez/rez selftest -vv
+      displayName: 'Run rez selftest'
 
 
   - job: Windows
@@ -52,22 +46,12 @@ jobs:
       matrix:
         Python27:
           python.version: '2.7'
-        # Python37:
-        #   python.version: '3.7'
 
     steps:
       - task: UsePythonVersion@0
         inputs:
           versionSpec: '$(python.version)'
         displayName: 'Use Python $(python.version)'
-
-      - powershell: |
-          # Skip make and CMake tests on Windows, they don't work
-          cmake --version
-          make --version
-          Remove-Item $(Get-Command cmake).path
-          Remove-Item $(Get-Command make).path
-        displayName: 'Disable CMake'
 
       - powershell: |
           pip install --upgrade pip --user
