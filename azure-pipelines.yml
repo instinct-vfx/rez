@@ -83,6 +83,6 @@ jobs:
       #     python install.py $(Pipeline.Workspace)\rez_install
       #   displayName: 'Install rez'
 
-      -script: |
+      - script: |
           pytest
-       displayName: 'Run pytest'
+        displayName: 'Run pytest'
