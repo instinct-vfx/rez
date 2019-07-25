@@ -78,5 +78,5 @@ jobs:
         displayName: 'Install rez'
 
       - powershell: |
-          $(Pipeline.Workspace)\rez_install\bin\rez\rez-selftest -vv
+          $(Pipeline.Workspace)\rez_install\Scripts\rez\rez-selftest -vv
         displayName: 'selftest'
