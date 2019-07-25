@@ -30,14 +30,14 @@ jobs:
         sudo apt-get install -y tcsh csh cmake
       displayName: "Install dependencies for testing"
 
-    - script: |
-        python install.py $(Pipeline.Workspace)/rez_install
-      displayName: 'Install rez'
+    # - script: |
+    #     python install.py $(Pipeline.Workspace)/rez_install
+    #   displayName: 'Install rez'
 
     - script: |
         pip install pytest
         pip install pytest-cov
-        pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       displayName: 'Test with pytest'
 
     - task: PublishTestResults@2
