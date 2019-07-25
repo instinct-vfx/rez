@@ -7,77 +7,82 @@ trigger:
 - azure-pipelines
 
 jobs:
-  - job: Ubuntu
-    pool:
-      vmImage: 'ubuntu-latest'
-    strategy:
-      matrix:
-        Python27:
-          python.version: '2.7'
-
-    steps:
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '$(python.version)'
-      displayName: 'Use Python $(python.version)'
-
-    - script: |
-        python -m pip install --upgrade pip
-      displayName: 'Update pip'
-
-    - script: |
-        sudo apt-get update
-        sudo apt-get install -y tcsh csh cmake
-      displayName: "Install dependencies for testing"
-
-    # - script: |
-    #     python install.py $(Pipeline.Workspace)/rez_install
-    #   displayName: 'Install rez'
-
-    - script: |
-        pip install pytest
-        pip install pytest-cov
-        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
-      displayName: 'Test with pytest'
-
-    - task: PublishTestResults@2
-      condition: succeededOrFailed()
-      inputs:
-        testResultsFiles: '**/test-*.xml'
-        testRunTitle: 'Publish test results for Python $(python.version)'
-      
-    - task: PublishCodeCoverageResults@1
-      inputs:
-        codeCoverageTool: Cobertura
-        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
-        reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'    
-    # - script: |
-    #     $(Pipeline.Workspace)/rez_install/bin/rez/rez selftest -vv
-    #   displayName: 'Run rez selftest'
-
-
-  # - job: Windows
+  # - job: Ubuntu
   #   pool:
-  #     vmImage: vs2017-win2016
+  #     vmImage: 'ubuntu-latest'
   #   strategy:
   #     matrix:
   #       Python27:
   #         python.version: '2.7'
 
   #   steps:
-  #     - task: UsePythonVersion@0
-  #       inputs:
-  #         versionSpec: '$(python.version)'
-  #       displayName: 'Use Python $(python.version)'
+  #   - task: UsePythonVersion@0
+  #     inputs:
+  #       versionSpec: '$(python.version)'
+  #     displayName: 'Use Python $(python.version)'
 
-  #     - powershell: |
-  #         pip install --upgrade pip --user
-  #       displayName: 'pip install'
+  #   - script: |
+  #       python -m pip install --upgrade pip
+  #     displayName: 'Update pip'
 
-  #     - powershell: |
-  #         python install.py $(Pipeline.Workspace)\rez_install
-  #       displayName: 'Install rez'
+  #   - script: |
+  #       sudo apt-get update
+  #       sudo apt-get install -y tcsh csh cmake
+  #     displayName: "Install dependencies for testing"
 
-  #     - powershell: |
-  #         $(Pipeline.Workspace)\rez_install\Scripts\rez\rez-selftest -vv
-  #       displayName: 'selftest'
+  #   # - script: |
+  #   #     python install.py $(Pipeline.Workspace)/rez_install
+  #   #   displayName: 'Install rez'
+
+  #   - script: |
+  #       pip install pytest
+  #       pip install pytest-cov
+  #       pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+  #     displayName: 'Test with pytest'
+
+  #   - task: PublishTestResults@2
+  #     condition: succeededOrFailed()
+  #     inputs:
+  #       testResultsFiles: '**/test-*.xml'
+  #       testRunTitle: 'Publish test results for Python $(python.version)'
+      
+  #   - task: PublishCodeCoverageResults@1
+  #     inputs:
+  #       codeCoverageTool: Cobertura
+  #       summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+  #       reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
+
+  #   # - script: |
+  #   #     $(Pipeline.Workspace)/rez_install/bin/rez/rez selftest -vv
+  #   #   displayName: 'Run rez selftest'
+
+
+  - job: Windows
+    pool:
+      vmImage: vs2017-win2016
+    strategy:
+      matrix:
+        Python27:
+          python.version: '2.7'
+
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: '$(python.version)'
+        displayName: 'Use Python $(python.version)'
+
+      - script: |
+          pip install --upgrade pip --user
+        displayName: 'pip install'
+
+      - script: |
+          pip install --upgrade pytest
+          pip install --upgrade pytest-cov
+        displayName: 'Install test dependencies'
+      # - powershell: |
+      #     python install.py $(Pipeline.Workspace)\rez_install
+      #   displayName: 'Install rez'
+
+      -script: |
+          pytest
+       displayName: 'Run pytest'
