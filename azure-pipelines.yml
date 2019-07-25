@@ -23,7 +23,7 @@ jobs:
 
     - script: |
         python -m pip install --upgrade pip
-      displayName: 'Update pip'
+      displayName: 'Ensure pip is latest version'
 
     - script: |
         sudo apt-get update
@@ -57,7 +57,7 @@ jobs:
         displayName: 'Use Python $(python.version)'
 
       - script: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
         displayName: 'Ensure pip is latest version'
 
       - script: |
