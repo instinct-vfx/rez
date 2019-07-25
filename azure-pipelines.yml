@@ -74,9 +74,9 @@ jobs:
         displayName: 'pip install'
 
       - powershell: |
-          python install.py $(Pipeline.Workspace)/rez_install
+          python install.py $(Pipeline.Workspace)\rez_install
         displayName: 'Install rez'
 
       - powershell: |
-          $(Pipeline.Workspace)/rez_install/bin/rez/rez selftest -vv
+          $(Pipeline.Workspace)\rez_install\bin\rez\rez-selftest -vv
         displayName: 'selftest'
