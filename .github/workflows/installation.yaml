@@ -13,10 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os:
-          - 'ubuntu-lates'
-          - 'macOS-latest'
-          - 'windows-2019'
+        os: ['ubuntu-lates', 'macOS-latest', 'windows-2019']
         python-version:
           - '2.7'
           - '3.7'
