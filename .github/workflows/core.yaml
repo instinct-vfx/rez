@@ -21,7 +21,7 @@ on:
 jobs:
   main:
     name: main
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
