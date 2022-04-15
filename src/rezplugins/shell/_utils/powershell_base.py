@@ -182,6 +182,7 @@ class PowerShellBase(Shell):
             "}"
         )
 
+
         code = executor.get_output()
         target_file = os.path.join(tmpdir,
                                    "rez-shell.%s" % self.file_extension())
