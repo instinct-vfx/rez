@@ -9,7 +9,8 @@ on:
 
 jobs:
   main:
-    name: ${{ matrix.os }} - ${{ matrix.python-version }} - ${{ matrix.method }}    
+    name: ${{ matrix.os }} - ${{ matrix.python-version }} - ${{ matrix.method }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-2019]
@@ -20,12 +21,16 @@ jobs:
           - 'python ./install.py ~/rez'
           - 'pip install --target ~/rez .'
         include:
+          - os: ubuntu-latest
+            INSTALL_PATH: /opt/rez
+          - os: macos-latest
+            INSTALL_PATH: /opt/rez
+          - os: windows-2019
+            INSTALL_PATH: /opt/rez
           - method: 'python ./install.py'
             exports: 'PATH=${PATH}:~/rez/bin/rez'
-          - method: 'pip install --target /opt/rez .'
+          - method: 'pip install --target ~/rez .'
             exports: 'PATH=${PATH}:~/rez/bin PYTHONPATH=${PYTHONPATH}:~/rez'
-    
-    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v2
