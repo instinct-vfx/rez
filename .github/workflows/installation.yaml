@@ -15,11 +15,8 @@ jobs:
       matrix:
         os: 
           - ubuntu-latest
-          REZ_INSTALL_PATH: /opt/rez
           - macOS-latest
-          REZ_INSTALL_PATH: /opt/rez
           - windows-2019]
-          REZ_INSTALL_PATH: c:\ProgramData\rez
         python-version:
           - '2.7'
           - '3.7'
@@ -27,9 +24,14 @@ jobs:
           - 'install'
           - 'pip'
       include:
+        - ubuntu-latest
+        REZ_INSTALL_PATH: /opt/rez
+        - macOS-latest
+        REZ_INSTALL_PATH: /opt/rez
+        - windows-2019]
+        REZ_INSTALL_PATH: c:\ProgramData\rez
 
-   
-
+  
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -39,7 +41,7 @@ jobs:
     - name: Install
       run: |
         echo REZ_INSTALL_PATH
-            
+
 #   - name: Install
 #       run: |
 #         $env:REZ_PATH=
