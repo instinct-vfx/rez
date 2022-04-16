@@ -16,20 +16,21 @@ jobs:
         os: 
           - ubuntu-latest
           - macOS-latest
-          - windows-2019]
-        python-version:
-          - '2.7'
-          - '3.7'
-        method:
-          - 'install'
-          - 'pip'
+          - windows-2019
         include:
           - os: ubuntu-latest
           REZ_INSTALL_PATH: /opt/rez
           - os: macOS-latest
           REZ_INSTALL_PATH: /opt/rez
           - os: windows-2019]
-          REZ_INSTALL_PATH: c:\ProgramData\rez
+          REZ_INSTALL_PATH: c:\ProgramData\rez                    
+        python-version:
+          - '2.7'
+          - '3.7'
+        method:
+          - 'install'
+          - 'pip'
+
 
   
     steps:
