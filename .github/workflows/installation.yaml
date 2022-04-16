@@ -23,13 +23,13 @@ jobs:
         method:
           - 'install'
           - 'pip'
-      include:
-        - ubuntu-latest
-        REZ_INSTALL_PATH: /opt/rez
-        - macOS-latest
-        REZ_INSTALL_PATH: /opt/rez
-        - windows-2019]
-        REZ_INSTALL_PATH: c:\ProgramData\rez
+        include:
+          - ubuntu-latest
+          REZ_INSTALL_PATH: /opt/rez
+          - macOS-latest
+          REZ_INSTALL_PATH: /opt/rez
+          - windows-2019]
+          REZ_INSTALL_PATH: c:\ProgramData\rez
 
   
     steps:
