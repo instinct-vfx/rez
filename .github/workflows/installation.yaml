@@ -33,9 +33,9 @@ jobs:
           REZ_INSTALL_PATH: c:\ProgramData\rez
 
         - method: install
-          REZ_INSTALL_COMMAND: 'python ./install.py'
+          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         - method: pip
-          REZ_INSTALL_COMMAND: 'pip install --target '
+          REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
   
     steps:
     - uses: actions/checkout@v2
@@ -45,7 +45,7 @@ jobs:
 
     - name: Install
       run: |
-        echo ${{ matrix.REZ_INSTALL_COMMAND }}
+        ${{ matrix.REZ_INSTALL_COMMAND }}
 
 #   - name: Install
 #       run: |
