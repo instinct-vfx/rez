@@ -24,11 +24,11 @@ jobs:
           - 'install'
           - 'pip'
         include:
-          - ubuntu-latest
+          - os: ubuntu-latest
           REZ_INSTALL_PATH: /opt/rez
-          - macOS-latest
+          - os: macOS-latest
           REZ_INSTALL_PATH: /opt/rez
-          - windows-2019]
+          - os: windows-2019]
           REZ_INSTALL_PATH: c:\ProgramData\rez
 
   
