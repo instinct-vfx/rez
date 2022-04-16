@@ -15,8 +15,6 @@ jobs:
       matrix:
         os: 
           - ubuntu-latest
-            env:
-              OS: UBUNTU
           - macOS-latest
           - windows-2019]
         python-version:
@@ -25,7 +23,8 @@ jobs:
         method:
           - 'install'
           - 'pip'
-        
+    env:
+      OS: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v2
