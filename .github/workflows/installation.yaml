@@ -10,7 +10,7 @@ on:
 jobs:
   main:
     name: ${{ matrix.os }} - ${{ matrix.python-version }} - ${{ matrix.method }}
-    runs-on: [ubuntu-latest, macOS-latest, windows-2019]
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-2019]
