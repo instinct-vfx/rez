@@ -15,6 +15,7 @@ jobs:
       matrix:
         os: 
           - ubuntu-latest
+            OS=ubuntu
           - macOS-latest
           - windows-2019]
         python-version:
@@ -23,6 +24,7 @@ jobs:
         method:
           - 'install'
           - 'pip'
+        
 
     steps:
     - uses: actions/checkout@v2
