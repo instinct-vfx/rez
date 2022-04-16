@@ -30,7 +30,12 @@ jobs:
         - os: macOS-latest
           REZ_INSTALL_PATH: /opt/rez
         - os: windows-2019]
-          REZ_INSTALL_PATH: c:\ProgramData\rez        
+          REZ_INSTALL_PATH: c:\ProgramData\rez
+
+        - method: install
+          REZ_INSTALL_COMMAND: 'python ./install.py'
+        - method: pip
+          REZ_INSTALL_COMMAND: 'pip install --target ${{ matrix.REZ_INSTALL_PATH }} .'
   
     steps:
     - uses: actions/checkout@v2
@@ -40,7 +45,7 @@ jobs:
 
     - name: Install
       run: |
-        echo REZ_INSTALL_PATH
+        echo ${{ matrix.REZ_INSTALL_COMMAND }}
 
 #   - name: Install
 #       run: |
