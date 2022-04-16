@@ -35,7 +35,7 @@ jobs:
         - method: install
           REZ_INSTALL_COMMAND: 'python ./install.py'
         - method: pip
-          REZ_INSTALL_COMMAND: 'pip install --target ${{ matrix.REZ_INSTALL_PATH }} .'
+          REZ_INSTALL_COMMAND: 'pip install --target '
   
     steps:
     - uses: actions/checkout@v2
