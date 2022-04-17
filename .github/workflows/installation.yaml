@@ -66,15 +66,13 @@ jobs:
     - name: rez status
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
-        ls ~/rez
-        ls ~/rez/bin
+        pip freeze
         rez-status
 
 
     # - name: Install
     #   run: |
     #     ${{ matrix.method }}
-    
     #     find /opt/rez/ -maxdepth 2
 
 
