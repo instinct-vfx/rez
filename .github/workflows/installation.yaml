@@ -26,17 +26,33 @@ jobs:
 
         include:
         - os: ubuntu-latest
-          REZ_INSTALL_PATH: /opt/rez
-        - os: macOS-latest
-          REZ_INSTALL_PATH: /opt/rez
-        - os: windows-2019]
-          REZ_INSTALL_PATH: c:\ProgramData\rez
-
-        - method: install
+          method: install          
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
           REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
-        - method: pip
+        - os: ubuntu-latest
+          method: pip
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez PYTHONPATH=${PYTHONPATH}:~/rez'
           REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
-  
+
+        - os: macOS-latest
+          method: install
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+        - os: macOS-latest
+          method: pip
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez PYTHONPATH=${PYTHONPATH}:~/rez'
+          REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+
+        - os: windows-2019
+          method: install
+          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez/bin/rez;'
+          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+        - os: windows-2019
+          method: pip
+          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez/bin/rez; $env:PYTHONPATH=$env:PYTHONPATH;~/rez'
+          REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+    
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -47,7 +63,37 @@ jobs:
       run: |
         ${{ matrix.REZ_INSTALL_COMMAND }}
 
-#   - name: Install
-#       run: |
-#         $env:REZ_PATH=
-#       if: matrix.os 0== 'windows-latest'
+    - name: rez status
+      run: |
+        ${{ matrix.REZ_SET_PATH_COMMAND }}
+        rez status
+      env:
+        TAG1: "devmtl/rclone:2.29.1-2019-08-24-32c812f7"
+
+
+    # - name: Install
+    #   run: |
+    #     ${{ matrix.method }}
+    
+    #     find /opt/rez/ -maxdepth 2
+
+
+    # - name: rez status
+    #   run: |
+    #     export ${{ matrix.exports }}
+    #     rez status
+
+
+    # - name: rez-pip --install .
+    #   run: |
+    #     export ${{ matrix.exports }}
+    #     rez-pip --install .
+    #     rez view rez
+    # - name: Import rez package in Python
+    #   run: |
+    #     export ${{ matrix.exports }}
+    #     # Still needed as there's no fallback to use system's python
+    #     # TODO update once 'provides' mechanism is implemented
+    #     rez bind python
+    #     echo "Checking rez as python package:"
+    #     rez env rez -- python -c 'import rez;print(rez.__file__)'
