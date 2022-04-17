@@ -27,8 +27,8 @@ jobs:
         include:
           - method: install
             REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
-          - method: pip
-            REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+          # - method: pip
+          #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
           - os: windows-2019
             REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;$home/rez'
