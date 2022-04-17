@@ -15,8 +15,8 @@ jobs:
       matrix:
         os: 
           # - ubuntu-latest
-          # - macOS-latest
-          - windows-2019
+          - macOS-latest
+          # - windows-2019
         python-version:
           # - '2.7'
           - '3.7'
@@ -34,23 +34,23 @@ jobs:
         #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
         #   REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
 
-        # - os: macOS-latest
-        #   method: install
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
-        #   REZ_INSTALL_COMMAND: 'python ./install.py /opt/rez'
-        # - os: macOS-latest
-        #   method: pip
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
-        #   REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
+        - os: macOS-latest
+          method: install
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py /opt/rez'
+        - os: macOS-latest
+          method: pip
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
+          REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
 
         # - os: windows-2019
         #   method: install
         #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez"'
         #   REZ_INSTALL_COMMAND: 'python ./install.py C:\ProgramData\rez'
-        - os: windows-2019
-          method: pip
-          REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
-          REZ_INSTALL_COMMAND: 'pip install --target C:\ProgramData\rez .'
+        # - os: windows-2019
+        #   method: pip
+        #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
+        #   REZ_INSTALL_COMMAND: 'pip install --target C:\ProgramData\rez .'
     
 
     steps:
