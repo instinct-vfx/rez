@@ -66,9 +66,8 @@ jobs:
     - name: rez status
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
+        printenv
         rez status
-      env:
-        TAG1: "devmtl/rclone:2.29.1-2019-08-24-32c812f7"
 
 
     # - name: Install
