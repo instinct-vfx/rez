@@ -80,6 +80,7 @@ jobs:
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
         $env:PATH
+        ls $home\rez\bin
         rez-status
 
 
