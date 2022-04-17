@@ -31,7 +31,7 @@ jobs:
           #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
           - os: windows-2019
-            REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;$home\rez'
+            REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez"'
 
         # - os: ubuntu-latest
         #   method: install          
