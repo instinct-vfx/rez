@@ -36,12 +36,12 @@ jobs:
 
         - os: macOS-latest
           method: install
-          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
-          REZ_INSTALL_COMMAND: 'python ./install.py /opt/rez'
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         - os: macOS-latest
           method: pip
-          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
-          REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin PYTHONPATH=${PYTHONPATH}:~/rez'
+          REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
         # - os: windows-2019
         #   method: install
