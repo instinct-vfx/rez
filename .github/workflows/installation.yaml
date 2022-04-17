@@ -40,7 +40,7 @@ jobs:
           REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         - os: macOS-latest
           method: pip
-          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin PYTHONPATH=${PYTHONPATH}:~/rez'
+          REZ_SET_PATH_COMMAND: 'export PATH=$PATH:~/rez/bin PYTHONPATH=$PYTHONPATH:~/rez'
           REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
         # - os: windows-2019
