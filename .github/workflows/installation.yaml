@@ -25,6 +25,14 @@ jobs:
           #- 'pip'
 
         include:
+          - method: install
+            REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+          - method: pip
+            REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+
+          - os: windows-2019
+            REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;$home/rez'
+
         # - os: ubuntu-latest
         #   method: install          
         #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
@@ -43,10 +51,10 @@ jobs:
         #   REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
         #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
-        - os: windows-2019
-          method: install
-          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez'
-          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+        # - os: windows-2019
+        #   method: install
+        #   REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez'
+        #   REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         # - os: windows-2019
         #   method: pip
         #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
