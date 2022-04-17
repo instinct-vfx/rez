@@ -61,6 +61,7 @@ jobs:
 
     - name: Install
       run: |
+        pip install --upgrade setuptools
         ${{ matrix.REZ_INSTALL_COMMAND }}
 
     - name: rez status
