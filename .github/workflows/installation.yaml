@@ -31,7 +31,7 @@ jobs:
           REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         - os: ubuntu-latest
           method: pip
-          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez PYTHONPATH=${PYTHONPATH}:~/rez'
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin PYTHONPATH=${PYTHONPATH}:~/rez'
           REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
         - os: macOS-latest
@@ -40,16 +40,16 @@ jobs:
           REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         - os: macOS-latest
           method: pip
-          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez PYTHONPATH=${PYTHONPATH}:~/rez'
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin PYTHONPATH=${PYTHONPATH}:~/rez'
           REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
         - os: windows-2019
           method: install
-          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez/bin/rez;'
+          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez/Scripts/rez;'
           REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         - os: windows-2019
           method: pip
-          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez/bin/rez; $env:PYTHONPATH=$env:PYTHONPATH;~/rez'
+          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez/Scripts; $env:PYTHONPATH=$env:PYTHONPATH;~/rez'
           REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
     
 
