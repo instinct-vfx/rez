@@ -22,7 +22,7 @@ jobs:
           - '3.7'
         method:
           - 'install'
-          - 'pip'
+          # - 'pip'
 
         include:
         # - os: ubuntu-latest
@@ -38,10 +38,10 @@ jobs:
           method: install
           REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
           REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
-        - os: macOS-latest
-          method: pip
-          REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
-          REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+        # - os: macOS-latest
+        #   method: pip
+        #   REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
+        #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
         # - os: windows-2019
         #   method: install
