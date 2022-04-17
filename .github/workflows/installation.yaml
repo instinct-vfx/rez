@@ -21,8 +21,8 @@ jobs:
           # - '2.7'
           - '3.7'
         method:
-          - 'install'
-          # - 'pip'
+          # - 'install'
+          - 'pip'
 
         include:
         # - os: ubuntu-latest
@@ -34,14 +34,14 @@ jobs:
         #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
         #   REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
 
-        - os: macOS-latest
-          method: install
-          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
-          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         # - os: macOS-latest
-        #   method: pip
-        #   REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
-        #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+        #   method: install
+        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
+        #   REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+        - os: macOS-latest
+          method: pip
+          REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
+          REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
         # - os: windows-2019
         #   method: install
@@ -66,6 +66,8 @@ jobs:
     - name: rez status
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
+        ls ~/rez
+        ls ~/rez/bin
         rez-status
 
 
