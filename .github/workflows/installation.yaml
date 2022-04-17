@@ -49,7 +49,7 @@ jobs:
         #   REZ_INSTALL_COMMAND: 'python ./install.py C:\ProgramData\rez'
         - os: windows-2019
           method: pip
-          REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\Scripts"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
+          REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
           REZ_INSTALL_COMMAND: 'pip install --target C:\ProgramData\rez .'
     
 
@@ -66,11 +66,6 @@ jobs:
     - name: rez status
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
-        $env:path
-        $env:PYTHONPATH
-        ls C:\ProgramData
-        ls C:\ProgramData\rez
-        ls C:\ProgramData\rez\Scripts
         rez status
 
 
