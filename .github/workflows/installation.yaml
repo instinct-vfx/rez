@@ -68,7 +68,7 @@ jobs:
         ${{ matrix.REZ_SET_PATH_COMMAND }}
         printenv
         ls ~/rez/bin/rez
-        rez status
+        rez-status
 
 
     # - name: Install
