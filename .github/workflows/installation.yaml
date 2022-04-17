@@ -22,7 +22,7 @@ jobs:
           - '3.7'
         method:
           - 'install'
-          #- 'pip'
+          - 'pip'
 
         include:
           - method: install
@@ -31,7 +31,12 @@ jobs:
           #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
           - os: windows-2019
-            REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez"'
+            method: install
+            REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez\bin\rez"'
+
+          - os: windows-2019
+            method: pip
+            REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez\bin;$env:PYTHONPATH="$env:PYTHONPATH;$home\rez"'
 
         # - os: ubuntu-latest
         #   method: install          
@@ -75,7 +80,6 @@ jobs:
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
         $env:PATH
-        ls ~/rez/bin/rez
         rez-status
 
 
