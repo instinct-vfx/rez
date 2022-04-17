@@ -68,6 +68,8 @@ jobs:
         ${{ matrix.REZ_SET_PATH_COMMAND }}
         $env:path
         $env:PYTHONPATH
+        ls C:\ProgramData
+        ls C:\ProgramData\rez
         ls C:\ProgramData\rez\Scripts
         rez status
 
