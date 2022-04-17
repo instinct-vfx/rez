@@ -45,7 +45,7 @@ jobs:
 
         - os: windows-2019
           method: install
-          REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;~/rez"'
+          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez'
           REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         # - os: windows-2019
         #   method: pip
