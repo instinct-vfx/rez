@@ -14,56 +14,56 @@ jobs:
     strategy:
       matrix:
         os: 
-          # - ubuntu-latest
-          # - macOS-latest
+          - ubuntu-latest
+          - macOS-latest
           - windows-2019
         python-version:
-          # - '2.7'
+          - '2.7'
           - '3.7'
         method:
           - 'install'
           - 'pip'
 
         include:
-          - method: install
-            REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
-          - method: pip
-            REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+          # - method: install
+          #   REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+          # - method: pip
+          #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
-          - os: windows-2019
-            method: install
-            REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez\bin\rez"'
+          # - os: windows-2019
+          #   method: install
+          #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez\bin\rez"'
 
-          - os: windows-2019
-            method: pip
-            REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;$home\rez"'
+          # - os: windows-2019
+          #   method: pip
+          #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;$home\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;$home\rez"'
 
-        # - os: ubuntu-latest
-        #   method: install          
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
-        #   REZ_INSTALL_COMMAND: 'python ./install.py /opt/rez'
-        # - os: ubuntu-latest
-        #   method: pip
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
-        #   REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
+        - os: ubuntu-latest
+          method: install          
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py /opt/rez'
+        - os: ubuntu-latest
+          method: pip
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
+          REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
 
-        # - os: macOS-latest
-        #   method: install
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
-        #   REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
-        # - os: macOS-latest
-        #   method: pip
-        #   REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
-        #   REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
+        - os: macOS-latest
+          method: install
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+        - os: macOS-latest
+          method: pip
+          REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
+          REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
-        # - os: windows-2019
-        #   method: install
-        #   REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez'
-        #   REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
-        # - os: windows-2019
-        #   method: pip
-        #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
-        #   REZ_INSTALL_COMMAND: 'pip install --target C:\ProgramData\rez .'
+        - os: windows-2019
+          method: install
+          REZ_SET_PATH_COMMAND: '$env:PATH=$env:PATH;~/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+        - os: windows-2019
+          method: pip
+          REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
+          REZ_INSTALL_COMMAND: 'pip install --target C:\ProgramData\rez .'
     
 
     steps:
@@ -79,10 +79,6 @@ jobs:
     - name: rez status
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
-        $env:PATH
-        ls $home
-        ls $home\rez
-        ls $home\rez\bin
         rez-status
 
 
