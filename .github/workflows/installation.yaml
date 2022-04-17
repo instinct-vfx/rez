@@ -70,7 +70,9 @@ jobs:
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
         pip freeze
-        cat /Users/runner/rez/bin/rez-status        
+        cat /Users/runner/rez/bin/rez-status
+        echo $PYTHONPATH
+        python -c 'import rez'
         rez-status
 
 
