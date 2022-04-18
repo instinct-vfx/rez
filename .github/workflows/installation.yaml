@@ -75,13 +75,6 @@ jobs:
     - name: rez status
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
-        pip freeze
-        cat /Users/runner/rez/bin/rez-status
-        python -c 'import os;print(os.environ["PYTHONPATH"])'
-        ls /Users/runner/work/rez/rez
-
-        python -c 'import rez'
-
         rez-status
 
 
