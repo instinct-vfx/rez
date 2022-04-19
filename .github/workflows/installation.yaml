@@ -61,34 +61,29 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # - name: Install
-    #   run: |
-    #     pip install --upgrade setuptools
-    #     pip install --upgrade pip
-    #     pip install wheel
-    #     ${{ matrix.REZ_INSTALL_COMMAND }}
-
     - name: Install
       run: |
         ${{ matrix.REZ_INSTALL_COMMAND }}
-
+   #     find /opt/rez/ -maxdepth 2
     - name: rez status
       run: |
         ${{ matrix.REZ_SET_PATH_COMMAND }}
         rez-status
 
+    - name: rez-pip --install .
+      run: |
+        ${{ matrix.REZ_SET_PATH_COMMAND }}
+        rez-pip --install .
+        rez view rez
 
-    # - name: Install
-    #   run: |
-    #     ${{ matrix.method }}
-    #     find /opt/rez/ -maxdepth 2
-
-
-    # - name: rez status
-    #   run: |
-    #     export ${{ matrix.exports }}
-    #     rez status
-
+    - name: Import rez package in Python
+      run: |
+        ${{ matrix.REZ_SET_PATH_COMMAND }}
+        # Still needed as there's no fallback to use system's python
+        # TODO update once 'provides' mechanism is implemented
+        rez bind python
+        echo "Checking rez as python package:"
+        rez env rez -- python -c 'import rez;print(rez.__file__)'
 
     # - name: rez-pip --install .
     #   run: |
