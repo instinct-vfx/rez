@@ -84,4 +84,5 @@ jobs:
         echo $env:PATH
         Get-Command python
         Get-Command rez-env
+        $env:PATH="$env:PATH;C:\ProgramData\rez\bin"
         rez-env rez -- python -c 'import rez;print(rez.__file__)'
