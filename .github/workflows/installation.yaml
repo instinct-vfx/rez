@@ -14,47 +14,44 @@ jobs:
     strategy:
       matrix:
         os: 
-          # - ubuntu-latest
+          - ubuntu-latest
           - macOS-latest
-          # - windows-2019
+          - windows-2019
         python-version:
-          # - '2.7'
+          - '2.7'
           - '3.7'
         method:
-          # - 'install'
+          - 'install'
           - 'pip'
 
         include:
-        # - os: ubuntu-latest
-        #   method: install          
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
-        #   REZ_INSTALL_COMMAND: 'python ./install.py /opt/rez'
-        # - os: ubuntu-latest
-        #   method: pip
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
-        #   REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
+        - os: ubuntu-latest
+          method: install          
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py /opt/rez'
+        - os: ubuntu-latest
+          method: pip
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:/opt/rez/bin PYTHONPATH=${PYTHONPATH}:/opt/rez'
+          REZ_INSTALL_COMMAND: 'pip install --target /opt/rez .'
 
-        # - os: macOS-latest
-        #   method: install
-        #   REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
-        #   REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
+        - os: macOS-latest
+          method: install
+          REZ_SET_PATH_COMMAND: 'export PATH=${PATH}:~/rez/bin/rez'
+          REZ_INSTALL_COMMAND: 'python ./install.py ~/rez'
         - os: macOS-latest
           method: pip
-          #REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH="$PYTHONPATH:~/rez"'
           REZ_SET_PATH_COMMAND: 'export PATH="$PATH:~/rez/bin" PYTHONPATH=$PYTHONPATH:$HOME/rez'
-          
           REZ_INSTALL_COMMAND: 'pip install --target ~/rez .'
 
-        # - os: windows-2019
-        #   method: install
-        #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\Scripts\rez"'
-        #   REZ_INSTALL_COMMAND: 'python ./install.py C:\ProgramData\rez'
-        # - os: windows-2019
-        #   method: pip
-        #   REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
-        #   REZ_INSTALL_COMMAND: 'pip install --target C:\ProgramData\rez .'
+        - os: windows-2019
+          method: install
+          REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\Scripts\rez"'
+          REZ_INSTALL_COMMAND: 'python ./install.py C:\ProgramData\rez'
+        - os: windows-2019
+          method: pip
+          REZ_SET_PATH_COMMAND: '$env:PATH="$env:PATH;C:\ProgramData\rez\bin"; $env:PYTHONPATH="$env:PYTHONPATH;C:\ProgramData\rez"'
+          REZ_INSTALL_COMMAND: 'pip install --target C:\ProgramData\rez .'
     
-
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -84,17 +81,3 @@ jobs:
         rez bind python
         echo "Checking rez as python package:"
         rez env rez -- python -c 'import rez;print(rez.__file__)'
-
-    # - name: rez-pip --install .
-    #   run: |
-    #     export ${{ matrix.exports }}
-    #     rez-pip --install .
-    #     rez view rez
-    # - name: Import rez package in Python
-    #   run: |
-    #     export ${{ matrix.exports }}
-    #     # Still needed as there's no fallback to use system's python
-    #     # TODO update once 'provides' mechanism is implemented
-    #     rez bind python
-    #     echo "Checking rez as python package:"
-    #     rez env rez -- python -c 'import rez;print(rez.__file__)'
