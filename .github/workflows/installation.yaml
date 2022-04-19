@@ -75,7 +75,7 @@ jobs:
 
     - name: Import rez package in Python
       run: |
-        ${{ matrix.REZ_SET_PATH_COMMAND }}
+        # ${{ matrix.REZ_SET_PATH_COMMAND }}
         # Still needed as there's no fallback to use system's python
         # TODO update once 'provides' mechanism is implemented
         rez-bind python
@@ -84,4 +84,4 @@ jobs:
         echo $env:PATH
         Get-Command python
         Get-Command rez-env
-#        rez-env rez -- python -c 'import rez;print(rez.__file__)'
+        rez-env rez -- python -c 'import rez;print(rez.__file__)'
