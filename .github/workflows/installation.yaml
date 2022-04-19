@@ -79,7 +79,7 @@ jobs:
         ${{ matrix.REZ_SET_PATH_COMMAND }}
         # Still needed as there's no fallback to use system's python
         # TODO update once 'provides' mechanism is implemented
-        
+        ls C:\ProgramData\rez
         rez-bind python
         echo "Checking rez as python package:"
         rez-env python -- rez-context
