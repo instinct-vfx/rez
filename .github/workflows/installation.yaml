@@ -80,4 +80,8 @@ jobs:
         # TODO update once 'provides' mechanism is implemented
         rez-bind python
         echo "Checking rez as python package:"
-        rez-env rez -- python -c 'import os;import sys;print(os.environ["PYTHONPATH"]);print(sys.executable);import rez;print(rez.__file__)'
+        echo $env:PYTHONPATH
+        echo $env:PATH
+        Get-Command python
+        Get-Command rez-env
+#        rez-env rez -- python -c 'import rez;print(rez.__file__)'
