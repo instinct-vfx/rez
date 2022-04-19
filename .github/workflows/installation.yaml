@@ -75,14 +75,11 @@ jobs:
 
     - name: Import rez package in Python
       run: |
-        # ${{ matrix.REZ_SET_PATH_COMMAND }}
+        ${{ matrix.REZ_SET_PATH_COMMAND }}
         # Still needed as there's no fallback to use system's python
         # TODO update once 'provides' mechanism is implemented
-        $env:PATH="$env:PATH;C:\ProgramData\rez\bin"
+        
         rez-bind python
         echo "Checking rez as python package:"
-        echo $env:PYTHONPATH
-        echo $env:PATH
-        Get-Command python
-        Get-Command rez-env        
+        rez-env python -- rez-context
         rez-env rez -- python -c 'import rez;print(rez.__file__)'
