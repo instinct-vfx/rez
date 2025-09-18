@@ -3,8 +3,14 @@
 
 
 from rez.config import config
-from rez.vendor.memcache.memcache import Client as Client_, \
-    SERVER_MAX_KEY_LENGTH, __version__ as memcache_client_version
+
+# from rez.vendor._memcache.memcache import (
+#     Client as Client_,
+#     SERVER_MAX_KEY_LENGTH,
+#     __version__ as memcache_client_version,
+# )
+
+from bmemcached import Client as Client_
 from rez.util import get_function_arg_names
 from threading import local
 from contextlib import contextmanager
@@ -13,6 +19,11 @@ from inspect import isgeneratorfunction
 from hashlib import md5
 from uuid import uuid4
 
+# Manually setting version to bmemcached to distinguish from old cache entries
+memcache_client_version = "bmemcached"
+
+# Manually setting max key length. This is a hard limit anyways afaik
+SERVER_MAX_KEY_LENGTH = 250
 
 # this version should be changed if and when the caching interface changes
 cache_interface_version = 2
@@ -34,7 +45,13 @@ class Client(object):
 
     logger = config.debug_printer("memcache")
 
-    def __init__(self, servers, debug=False):
+    def __init__(
+        self,
+        servers,
+        debug=False,
+        memcached_user=config.memcached_user,
+        memcached_pass=config.memcached_pass,
+    ):
         """Create a memcached client.
 
         Args:
@@ -44,10 +61,12 @@ class Client(object):
                 being get/set/stored.
         """
         self.servers = [servers] if isinstance(servers, str) else servers
+        self.memcached_user = memcached_user
+        self.memcached_pass = memcached_pass
         self.key_hasher = self._debug_key_hash if debug else self._key_hash
         self._client = None
         self.debug = debug
-        self.current = ''
+        self.current = ""
 
     def __bool__(self):
         return bool(self.servers)
@@ -60,7 +79,11 @@ class Client(object):
             `memcache.Client` instance.
         """
         if self._client is None:
-            self._client = Client_(self.servers)
+            self._client = Client_(
+                self.servers, username=self.memcached_user, password=self.memcached_pass
+            )
+            # TODO: Remove
+            print(self._client)
         return self._client
 
     def test_servers(self):
@@ -87,10 +110,7 @@ class Client(object):
         hashed_key = self.key_hasher(key)
         val = (key, val)
 
-        self.client.set(key=hashed_key,
-                        val=val,
-                        time=time,
-                        min_compress_len=min_compress_len)
+        self.client.set(key=hashed_key, value=val, time=time)
         self.logger("SET: %s", key)
 
     def get(self, key):
@@ -177,7 +197,8 @@ class Client(object):
         )
 
     def _get_stats(self, stat_args=None):
-        return self.client.get_stats(stat_args=stat_args)
+        # return self.client.get_stats(stat_args=stat_args)
+        return self.client.stats().items()
 
     @classmethod
     def _key_hash(cls, key):
@@ -197,14 +218,26 @@ class _ScopedInstanceManager(local):
     def __init__(self):
         self.clients = {}
 
-    def acquire(self, servers, debug=False):
+    def acquire(
+        self,
+        servers,
+        debug=False,
+        memcached_user=config.memcached_user,
+        memcached_pass=config.memcached_pass,
+    ):
         key = (tuple(servers or []), debug)
         entry = self.clients.get(key)
         if entry:
             entry[1] += 1
             return entry[0], key
         else:
-            client = Client(servers, debug=debug)
+            client = Client(
+                servers,
+                debug=debug,
+                memcached_user=memcached_user,
+                memcached_pass=memcached_pass,
+            )
+
             self.clients[key] = [client, 1]
             return client, key
 
@@ -223,7 +256,12 @@ scoped_instance_manager = _ScopedInstanceManager()
 
 
 @contextmanager
-def memcached_client(servers=config.memcached_uri, debug=config.debug_memcache):
+def memcached_client(
+    servers=config.memcached_uri,
+    memcached_user=config.memcached_user,
+    memcached_pass=config.memcached_pass,
+    debug=config.debug_memcache,
+):
     """Get a shared memcached instance.
 
     This function shares the same memcached instance across nested invocations.
@@ -238,7 +276,12 @@ def memcached_client(servers=config.memcached_uri, debug=config.debug_memcache):
     """
     key = None
     try:
-        client, key = scoped_instance_manager.acquire(servers, debug=debug)
+        client, key = scoped_instance_manager.acquire(
+            servers,
+            debug=debug,
+            memcached_user=config.memcached_user,
+            memcached_pass=config.memcached_pass,
+        )
         yield client
     finally:
         if key:
