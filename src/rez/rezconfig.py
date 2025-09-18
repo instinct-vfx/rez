@@ -57,7 +57,7 @@ import os
 # The package search path. Rez uses this to find packages. A package with the
 # same name and version in an earlier path takes precedence.
 packages_path = [
-    "~/packages",           # locally installed pkgs, not yet deployed
+    "~/packages",  # locally installed pkgs, not yet deployed
     "~/.rez/packages/int",  # internally developed pkgs, deployed
     "~/.rez/packages/ext",  # external (3rd party) pkgs, such as houdini, boost
 ]
@@ -165,6 +165,10 @@ resource_caching_maxsize = -1
 # example, the URI ``127.0.0.1:11211`` points to memcached running on localhost on
 # its default port. Must be either None, or a list of strings.
 memcached_uri = []
+
+# TODO: Not part of official rez, patching for memcached auth support
+memcached_user = "user"
+memcached_pass = "pass"
 
 # Bytecount beyond which memcached entries are compressed, for cached package
 # files (such as package.yaml, package.py). Zero means never compress.
@@ -511,9 +515,7 @@ env_var_separators = {
 # ``env.PATH.append("{root}/bin")`` will be normalized to (eg) ``C:\...\bin`` in a
 # ``cmd`` shell on Windows. Note that wildcards are supported. If this setting is
 # not correctly configured, then your shell may not work correctly.
-pathed_env_vars = [
-    "*PATH"
-]
+pathed_env_vars = ["*PATH"]
 
 # Defines what suites on ``$PATH`` stay visible when a new rez environment is resolved.
 # Possible values are:
@@ -643,16 +645,16 @@ package_preprocess_mode = "override"
 # to the payload. If any extra field contains references to unknown env-vars, or
 # is set to an empty string (possibly due to var expansion), it is removed from
 # the message payload.
-context_tracking_host = ''
+context_tracking_host = ""
 
 # See :data:`context_tracking_host`
 context_tracking_amqp = {
-    "userid": '',
-    "password": '',
+    "userid": "",
+    "password": "",
     "connect_timeout": 10,
-    "exchange_name": '',
-    "exchange_routing_key": 'REZ.CONTEXT',
-    "message_delivery_mode": 1
+    "exchange_name": "",
+    "exchange_routing_key": "REZ.CONTEXT",
+    "message_delivery_mode": 1,
 }
 
 # See :data:`context_tracking_host`
@@ -664,7 +666,7 @@ context_tracking_context_fields = [
     "from_cache",
     "package_requests",
     "implicit_packages",
-    "resolved_packages"
+    "resolved_packages",
 ]
 
 # See :data:`context_tracking_host`
@@ -1080,12 +1082,12 @@ documentation_url = "https://rez.readthedocs.io"
 # If the initialise is called in src/rez/__init__.py then it does work,
 # however this is not always desirable.
 # As it does with with some Windows shells it can be enabled in rezconfig
-color_enabled = (os.name == "posix")
+color_enabled = os.name == "posix"
 
 ### Do not move or delete this comment (__DOC_END__)
 
 # Logging colors
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 critical_fore = "red"
 critical_back = None
 critical_styles = ["bright"]
@@ -1107,7 +1109,7 @@ debug_back = None
 debug_styles = None
 
 # Context-sensitive colors
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Heading
 heading_fore = None
 heading_back = None
@@ -1142,9 +1144,7 @@ alias_styles = None
 # "rezconfig" file accompanying that plugin. The settings listed here are
 # common to all plugins of that type.
 
-plugins = {
-
-}
+plugins = {}
 
 
 ###############################################################################
